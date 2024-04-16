@@ -17,6 +17,10 @@ export const logout = async (req, res, next) => {
             code: 204,
 
         })
+        return User.findOneAndUpdate(
+            { _id: user.id },
+            { $set: { token: null } }
+        )
     }
     catch (error) {
         next(error);

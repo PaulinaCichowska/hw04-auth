@@ -1,6 +1,5 @@
 import { User } from "#models/userSchema.js"
 export const signUp = async (req, res, next) => {
-
     const { username, email, password } = req.body;
     const user = await User.findOne({ email }).lean();
     if (user) {
@@ -19,8 +18,11 @@ export const signUp = async (req, res, next) => {
             status: 'success',
             code: 201,
             data: {
-                message: 'Registration successful',
-            },
+                name: {
+                    "email": email,
+                    "subscription": "starter"
+                },
+            }
         });
     } catch (error) {
         next(error);
