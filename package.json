@@ -12,6 +12,7 @@
   "imports": {
     "#controllers/*": "./controllers/*",
     "#models/*": "./models/*",
+    "#middleware/*": "./middleware/*",
     "#routes/*": "./routes/*"
   },
   "dependencies": {

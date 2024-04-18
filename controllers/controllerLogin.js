@@ -36,10 +36,10 @@ export const login = async (req, res, next) => {
                 }
             },
         })
-        return User.findOneAndUpdate(
-            { _id: user.id },
-            { $set: { token: token } }
-        )
+        // return User.findOneAndUpdate(
+        //     { _id: user.id },
+        //     { $set: { token: token } }
+        // )
     }
 
     catch (error) {
