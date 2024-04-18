@@ -6,7 +6,6 @@ dotenv.config()
 const { HOST_DB: uriDb } = process.env;
 const connection = mongoose.connect(uriDb);
 
-
 async function startServer() {
   try {
     await connection;

@@ -30,18 +30,13 @@ export const login = async (req, res, next) => {
             code: 200,
             data: {
                 token,
-                name: {
+                user: {
                     "email": email,
                     "subscription": "starter"
                 }
             },
         })
-        // return User.findOneAndUpdate(
-        //     { _id: user.id },
-        //     { $set: { token: token } }
-        // )
     }
-
     catch (error) {
         next(error);
     }

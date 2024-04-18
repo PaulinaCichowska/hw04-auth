@@ -1,28 +1,17 @@
-import { User } from "#models/userSchema.js"
-export const logout = async (req, res, next) => {
-    const { email, password } = req.body
-    const user = await User.findOne({ email })
+import { Blacklist } from "#models/BlacklistSchema.js"
+export const logout = async (req, res) => {
     try {
-        if (!user || !user.validPassword(password)) {
-            return res.status(400).json({
-                status: 'error',
-                code: 400,
-                message: 'Incorrect login or password',
-                data: 'Bad request',
-            })
-        }
-        user.token = null;
-        res.json({
-            status: 'success',
-            code: 204,
-
-        })
-        return User.findOneAndUpdate(
-            { _id: user.id },
-            { $set: { token: null } }
-        )
-    }
-    catch (error) {
-        next(error);
+        const authHeader = req.headers.authorization;
+        const accessToken = authHeader.split(' ')[1];
+        const newBlacklist = new Blacklist({
+            token: accessToken,
+        });
+        await newBlacklist.save();
+        res.status(200).json({ message: 'You are logged out!' });
+    } catch (err) {
+        res.status(500).json({
+            status: 'error',
+            message: 'Internal Server Error',
+        });
     }
 }
